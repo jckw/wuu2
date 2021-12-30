@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Links,
+  LinksFunction,
   LiveReload,
   Meta,
   Outlet,
@@ -9,7 +10,18 @@ import {
   useCatch,
 } from 'remix'
 
-import { getCssText } from '~/stitches.config'
+export const links: LinksFunction = () => [
+  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+  {
+    rel: 'preconnect',
+    href: 'https://fonts.gstatic.com',
+    crossOrigin: 'anonymous',
+  },
+  {
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+  },
+]
 
 function Document({
   children,
@@ -23,11 +35,6 @@ function Document({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <style
-          id="stitches"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: getCssText() }}
-        />
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />

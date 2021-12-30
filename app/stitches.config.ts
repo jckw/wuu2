@@ -5,9 +5,21 @@ import type * as Stitches from '@stitches/react'
 export const stitches = createStitches({
   prefix: '',
   theme: {
+    colors: {
+      forest: 'hsla(136, 34%, 38%, 1)',
+      forest50: 'hsla(136, 34%, 38%, 0.5)',
+      mustard: 'hsla(41, 73%, 52%, 1)',
+      mustard50: 'hsla(41, 73%, 52%, 0.5)',
+      olive: 'hsla(58, 24%, 59%, 1)',
+      olive50: 'hsla(58, 24%, 59%, 0.5)',
+      rust: 'hsla(21, 45%, 52%, 1)',
+      rust50: 'hsla(21, 45%, 52%, 0.5)',
+      grey30: 'hsla(0, 0%, 30%, 1)',
+      grey48: 'hsla(0, 0%, 48%, 1)',
+    },
     fonts: {
       default:
-        "-apple-system, 'Segoe UI', Helvetica Neue, Helvetica, Roboto, Arial, sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji'",
+        "Inter, -apple-system, 'Segoe UI', Helvetica Neue, Helvetica, Roboto, Arial, sans-serif, system-ui, 'Apple Color Emoji', 'Segoe UI Emoji'",
     },
   },
   utils: {
