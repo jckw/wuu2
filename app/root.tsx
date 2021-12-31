@@ -10,6 +10,7 @@ import {
   useCatch,
 } from 'remix'
 
+import globalStyles from './styles/global.css'
 import styles from './tailwind.css'
 
 export const links: LinksFunction = () => [
@@ -21,7 +22,15 @@ export const links: LinksFunction = () => [
   },
   {
     rel: 'stylesheet',
+    href: globalStyles,
+  },
+  {
+    rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+  },
+  {
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap&text=↑→↓←',
   },
   {
     rel: 'stylesheet',
@@ -64,7 +73,7 @@ function Document({
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="pb-8 leading-normal">
+    <div className="pb-8 leading-normal font-sans">
       <div className="p-2">
         <img src="/icons/wuu2.svg" alt="wuu2" />
       </div>

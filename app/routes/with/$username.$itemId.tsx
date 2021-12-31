@@ -39,9 +39,14 @@ export default function UserProfile() {
         margin: 'auto',
       }}
     >
-      <Link to={`/with/${data.params.username}`}>
+      <Link to={`/with/${data.params.username}`} className="group">
         <div className="px-4 mb-6">
-          <div className="font-display text-4">jack weatherilt</div>
+          <div className="font-display text-4">
+            <span className="font-sans text-normal group-hover:text-black">
+              &larr;
+            </span>{' '}
+            jack weatherilt
+          </div>
           <div className="font-medium text-1">
             @{data.params.username} · Updated 3 hrs ago
           </div>

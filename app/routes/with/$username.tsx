@@ -1,57 +1,9 @@
 import React from 'react'
-import {
-  Link,
-  LoaderFunction,
-  MetaFunction,
-  useCatch,
-  useLoaderData,
-} from 'remix'
+import { LoaderFunction, MetaFunction, useCatch, useLoaderData } from 'remix'
 
-import ItemIcon from '~/components/ItemIcon'
-import { DATA, Interest } from '~/schema/temp'
-
-function InterestItem({ id, title, subtitle, body, category }: Interest) {
-  return (
-    <Link to={id}>
-      <div
-        className="item"
-        style={{
-          margin: 16,
-          gap: 8,
-          // display: 'grid',
-          // alignContent: 'start',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-          maxHeight: '222px',
-        }}
-      >
-        <div>
-          <ItemIcon variant={category} />
-        </div>
-        <div
-          className="grid h-fit min-h-0"
-          style={{
-            gap: 4,
-            flexGrow: 1,
-            alignContent: 'start',
-            maskImage: 'linear-gradient(rgba(0, 0, 0, 1.0), transparent)',
-            WebkitMaskImage:
-              'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.65) 66%, rgba(0, 0, 0, 0) 100%)',
-          }}
-        >
-          <h3 className="text-3 font-medium">{title}</h3>
-          {subtitle && (
-            <h4 className="font-medium text-2 text-pale">{subtitle}</h4>
-          )}
-          {body.split('\n').map((para) => (
-            <p className="text-2 text-normal">{para}</p>
-          ))}
-        </div>
-      </div>
-    </Link>
-  )
-}
+import AddItemSquare from '~/components/AddItemSquare'
+import Item from '~/components/Item'
+import { DATA } from '~/schema/temp'
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (params.username !== 'jack') {
@@ -83,13 +35,14 @@ export default function UserProfile() {
         </div>
       </div>
       <div
+        className="grid"
         style={{
-          display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))',
         }}
       >
+        <AddItemSquare />
         {DATA.map((d) => (
-          <InterestItem key={d.title} {...d} />
+          <Item key={d.title} {...d} />
         ))}
       </div>
     </div>
