@@ -10,6 +10,8 @@ import {
   useCatch,
 } from 'remix'
 
+import styles from './tailwind.css'
+
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
@@ -21,6 +23,17 @@ export const links: LinksFunction = () => [
     rel: 'stylesheet',
     href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
   },
+  {
+    rel: 'stylesheet',
+    href: 'https://use.typekit.net/unv5hzx.css',
+  },
+  {
+    rel: 'preload',
+    href: '/icons/wuu2.svg',
+    as: 'image',
+    type: 'image/svg+xml',
+  },
+  { rel: 'stylesheet', href: styles },
 ]
 
 function Document({
@@ -50,7 +63,14 @@ function Document({
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>
+  return (
+    <div style={{ marginBottom: 64 }}>
+      <div className="p-2">
+        <img src="/icons/wuu2.svg" alt="wuu2" />
+      </div>
+      {children}
+    </div>
+  )
 }
 
 // https://remix.run/api/conventions#default-export
