@@ -1,86 +1,67 @@
-import { LoaderFunction, useLoaderData } from 'remix'
+import React from 'react'
+import {
+  Link,
+  LoaderFunction,
+  MetaFunction,
+  useCatch,
+  useLoaderData,
+} from 'remix'
 
 import ItemIcon from '~/components/ItemIcon'
-import { InterestCategory } from '~/schema/temp'
+import { DATA, Interest } from '~/schema/temp'
 
-type Interest = {
-  title: string
-  subtitle?: string
-  body: string
-  category: InterestCategory
-}
-
-const DATA: Interest[] = [
-  {
-    title: 'A History of Modern Britain',
-    subtitle: 'Andrew Marr',
-    body: 'I have basically no history education, not even a GCSE. I’ve always read about it on the side but recently I’ve been wanting to learn more about how Britain and its institutions got to where they are today. This book seemed like it will do as a decent summary.',
-    category: InterestCategory.Book,
-  },
-  {
-    title: 'Architecture',
-    subtitle: 'Just curious',
-    body: 'I’m interested in how we got to the current state of architecture. It feels profoundly anti-human.',
-    category: InterestCategory.Topic,
-  },
-  {
-    title: 'Ceramics',
-    subtitle: 'Want to learn',
-    body: 'When I was in Istanbul I tried out a ceramics course and loved it. I only did it for a month, but would love to carry it on in the UK either at a studio or at home. \nI don’t really know where to start if I’m doing it at home, so it would be great to hear some guidance on the setup.',
-    category: InterestCategory.Arts,
-  },
-  {
-    title: 'Good Economics for Hard Times',
-    subtitle: 'Andrew Marr',
-    body: 'I’ve been trying to get into economics a little more, especially developmental economics.\nI don’t really have an economic training, but it’s interesting to see how the world works (or rather, how complicated the world is and how simple answers often miss the point).',
-    category: InterestCategory.Book,
-  },
-]
-
-function InterestItem({ title, subtitle, body, category }: Interest) {
+function InterestItem({ id, title, subtitle, body, category }: Interest) {
   return (
-    <div
-      className="item"
-      style={{
-        margin: 16,
-        gap: 8,
-        // display: 'grid',
-        // alignContent: 'start',
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        maxHeight: '222px',
-      }}
-    >
-      <div>
-        <ItemIcon variant={category} />
-      </div>
+    <Link to={id}>
       <div
-        className="grid h-fit min-h-0"
+        className="item"
         style={{
-          gap: 4,
-          flexGrow: 1,
-          alignContent: 'start',
-          maskImage: 'linear-gradient(rgba(0, 0, 0, 1.0), transparent)',
-          WebkitMaskImage:
-            'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.65) 66%, rgba(0, 0, 0, 0) 100%)',
+          margin: 16,
+          gap: 8,
+          // display: 'grid',
+          // alignContent: 'start',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          maxHeight: '222px',
         }}
       >
-        <h3 className="text-3 font-medium">{title}</h3>
-        {subtitle && (
-          <h4 className="font-medium text-2 text-pale">{subtitle}</h4>
-        )}
-        {body.split('\n').map((para) => (
-          <p className="text-2 text-normal">{para}</p>
-        ))}
+        <div>
+          <ItemIcon variant={category} />
+        </div>
+        <div
+          className="grid h-fit min-h-0"
+          style={{
+            gap: 4,
+            flexGrow: 1,
+            alignContent: 'start',
+            maskImage: 'linear-gradient(rgba(0, 0, 0, 1.0), transparent)',
+            WebkitMaskImage:
+              'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.65) 66%, rgba(0, 0, 0, 0) 100%)',
+          }}
+        >
+          <h3 className="text-3 font-medium">{title}</h3>
+          {subtitle && (
+            <h4 className="font-medium text-2 text-pale">{subtitle}</h4>
+          )}
+          {body.split('\n').map((para) => (
+            <p className="text-2 text-normal">{para}</p>
+          ))}
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
-export const loader: LoaderFunction = async ({ params }) => params
+export const loader: LoaderFunction = async ({ params }) => {
+  if (params.username !== 'jack') {
+    throw new Response('Not found', { status: 404 })
+  }
 
-function UserProfile() {
+  return params
+}
+
+export default function UserProfile() {
   const data = useLoaderData()
 
   return (
@@ -113,4 +94,36 @@ function UserProfile() {
   )
 }
 
-export default UserProfile
+export function CatchBoundary() {
+  const caught = useCatch()
+
+  let message: React.ReactNode
+  switch (caught.status) {
+    case 404:
+      message = (
+        <div>
+          <h1 className="font-display text-7 text-center">wuu... who?</h1>
+          <p className="text-normal text-center">
+            Looks like this profile doesn't exist.
+          </p>
+        </div>
+      )
+      break
+    default:
+      message = (
+        <>
+          <h2>Oops!</h2>
+          <p>
+            There was a problem with your request!
+            <br />
+            {caught.status} {caught.statusText}
+          </p>
+        </>
+      )
+  }
+  return <div className="max-w-screen-md mx-auto px-4">{message}</div>
+}
+
+export const meta: MetaFunction = ({ data }) => ({
+  title: data ? `@${data.username} · wuu2` : 'wuu... who?',
+})
