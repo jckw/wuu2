@@ -25,6 +25,10 @@ module.exports = {
       6: '32px',
       7: '48px',
     },
+    lineHeight: {
+      normal: '1.4',
+      headline: '1.1',
+    },
     extend: {},
   },
   variants: {},

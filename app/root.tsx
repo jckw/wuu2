@@ -64,7 +64,7 @@ function Document({
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: 64 }}>
+    <div className="pb-8 leading-normal">
       <div className="p-2">
         <img src="/icons/wuu2.svg" alt="wuu2" />
       </div>

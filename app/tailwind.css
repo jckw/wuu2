@@ -423,38 +423,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-*, ::before, ::after {
-  --tw-blur: var(--tw-empty,/*!*/ /*!*/);
-  --tw-brightness: var(--tw-empty,/*!*/ /*!*/);
-  --tw-contrast: var(--tw-empty,/*!*/ /*!*/);
-  --tw-grayscale: var(--tw-empty,/*!*/ /*!*/);
-  --tw-hue-rotate: var(--tw-empty,/*!*/ /*!*/);
-  --tw-invert: var(--tw-empty,/*!*/ /*!*/);
-  --tw-saturate: var(--tw-empty,/*!*/ /*!*/);
-  --tw-sepia: var(--tw-empty,/*!*/ /*!*/);
-  --tw-drop-shadow: var(--tw-empty,/*!*/ /*!*/);
-  --tw-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.absolute {
-  position: absolute;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
 .mt-4 {
   margin-top: 1rem;
 }
 
-.mb-6 {
-  margin-bottom: 1.5rem;
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .flex {
@@ -492,24 +475,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1rem;
 }
 
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
 .text-center {
   text-align: center;
 }
 
 .font-display {
   font-family: degular-display, Inter, sans-serif;
-}
-
-.text-2 {
-  font-size: 14px;
-}
-
-.text-7 {
-  font-size: 48px;
-}
-
-.text-3 {
-  font-size: 16px;
 }
 
 .text-4 {
@@ -520,18 +495,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 12px;
 }
 
+.text-7 {
+  font-size: 48px;
+}
+
+.text-3 {
+  font-size: 16px;
+}
+
+.text-2 {
+  font-size: 14px;
+}
+
 .font-medium {
   font-weight: 500;
 }
 
-.text-normal {
-  color: hsla(0, 0%, 30%, 1);
+.leading-normal {
+  line-height: 1.4;
+}
+
+.leading-headline {
+  line-height: 1.1;
 }
 
 .text-pale {
   color: hsla(200, 1%, 60%, 1);
 }
 
-.filter {
-  filter: var(--tw-filter);
+.text-normal {
+  color: hsla(0, 0%, 30%, 1);
 }

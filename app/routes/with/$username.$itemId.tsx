@@ -49,7 +49,9 @@ export default function UserProfile() {
       </Link>
       <div className="px-4">
         <ItemIcon variant={data.item.category} />
-        <h1 className="text-7 font-display mt-4">{data.item.title}</h1>
+        <h1 className="text-7 font-display mt-4 leading-headline">
+          {data.item.title}
+        </h1>
         <h2 className="text-4 font-medium text-pale mb-4">
           {data.item.subtitle}
         </h2>
@@ -69,7 +71,9 @@ export function CatchBoundary() {
     case 404:
       message = (
         <div>
-          <h1 className="font-display text-7 text-center">wuu... what?</h1>
+          <h1 className="font-display text-7 text-center leading-headline">
+            wuu... what?
+          </h1>
           <p className="text-normal text-center">
             Looks like this item doesn't exist.
           </p>
@@ -92,5 +96,7 @@ export function CatchBoundary() {
 }
 
 export const meta: MetaFunction = ({ data }) => ({
-  title: data ? `@${data.username} · wuu2` : 'wuu... who?',
+  title: data
+    ? `${data.item.title} · @${data.params.username} · wuu2`
+    : 'wuu... who?',
 })

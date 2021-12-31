@@ -58,7 +58,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response('Not found', { status: 404 })
   }
 
-  return params
+  return { params }
 }
 
 export default function UserProfile() {
@@ -78,7 +78,9 @@ export default function UserProfile() {
     >
       <div className="px-4">
         <h1 className="text-7 font-display">jack weatherilt</h1>
-        <div className="font-medium">@{data.username} · Updated 3 hrs ago</div>
+        <div className="font-medium">
+          @{data.params.username} · Updated 3 hrs ago
+        </div>
       </div>
       <div
         style={{
@@ -125,5 +127,5 @@ export function CatchBoundary() {
 }
 
 export const meta: MetaFunction = ({ data }) => ({
-  title: data ? `@${data.username} · wuu2` : 'wuu... who?',
+  title: data ? `@${data.params.username} · wuu2` : 'wuu... who?',
 })
