@@ -1,6 +1,7 @@
 import { json } from 'remix'
 
 import type { MetaFunction, LoaderFunction } from 'remix'
+import Input from '~/components/Input'
 
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next
@@ -58,15 +59,7 @@ export default function Index() {
       </div>
       <div className="border border-black rounded-2xl p-8 bg-white">
         <form className="space-y-8">
-          <label htmlFor="phone">
-            <div className="mb-2">Phone number</div>
-            <input
-              id="phone"
-              type="tel"
-              className="px-4 py-2 border rounded-lg w-full"
-              placeholder="+447700900000"
-            />
-          </label>
+          <Input label="Phone number" type="tel" placeholder="+447700900000" />
           <button
             type="button"
             className="rounded-lg px-4 py-2 w-full bg-black text-white hover:scale-105 transition-transform active:scale-100"
