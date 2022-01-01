@@ -6,6 +6,9 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'prettier',
   ],
+  globals: {
+    React: true,
+  },
   plugins: ['react', '@typescript-eslint', 'unused-imports'],
   parser: '@typescript-eslint/parser',
   parserOptions: {

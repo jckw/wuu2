@@ -15,10 +15,12 @@ module.exports = {
       taupe: 'hsla(45, 17%, 32%, 1)',
       sand: 'hsla(39, 33%, 96%, 1)', // bg colour
       white: 'hsla(0, 0%, 100%, 1)',
+      ruby: 'hsla(360, 56%, 42%, 1)',
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
       display: ['degular-display', 'Inter', 'sans-serif'],
+      heading: ['Manrope', 'sans-serif'],
     },
     fontSize: {
       1: '12px',

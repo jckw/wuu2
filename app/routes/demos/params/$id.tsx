@@ -1,4 +1,3 @@
-import React from 'react'
 import { useCatch, json, useLoaderData } from 'remix'
 
 import type { LoaderFunction, MetaFunction } from 'remix'

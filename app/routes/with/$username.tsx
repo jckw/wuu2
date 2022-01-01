@@ -1,4 +1,3 @@
-import React from 'react'
 import { LoaderFunction, MetaFunction, useCatch, useLoaderData } from 'remix'
 
 import AddItemSquare from '~/components/AddItemSquare'
