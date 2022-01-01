@@ -98,13 +98,13 @@ export default function Add() {
   const variant = watch('variant')
 
   return (
-    <div className="max-w-md mx-auto mt-8 px-4">
+    <div className="max-w-lg mx-auto mt-8 px-4">
       <h1 className="text-5 font-semibold text-center leading-headline">
         What kind of thing are you showing?
       </h1>
 
       <form onSubmit={handleSubmit((data) => console.log(data))}>
-        <div className="mt-8">
+        <div className="mt-8 px-3">
           <ItemRadioGroup name="variant" control={control} />
         </div>
 

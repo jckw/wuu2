@@ -8,6 +8,7 @@ import {
 
 import ItemIcon from '~/components/ItemIcon'
 import { DATA } from '~/schema/temp'
+import { title } from '~/utils/meta'
 
 const validItemIds = DATA.map((item) => item.id)
 
@@ -100,7 +101,5 @@ export function CatchBoundary() {
 }
 
 export const meta: MetaFunction = ({ data }) => ({
-  title: data
-    ? `${data.item.title} · @${data.params.username} · wuu2`
-    : 'wuu... who?',
+  title: data ? title(data.item.title, data.params.username) : 'wuu... who?',
 })

@@ -3,6 +3,7 @@ import { LoaderFunction, MetaFunction, useCatch, useLoaderData } from 'remix'
 import AddItemSquare from '~/components/AddItemSquare'
 import Item from '~/components/Item'
 import { DATA } from '~/schema/temp'
+import { title } from '~/utils/meta'
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (params.username !== 'jack') {
@@ -11,6 +12,10 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   return { params }
 }
+
+export const meta: MetaFunction = ({ data }) => ({
+  title: data ? title(data.params.username) : 'wuu.. who?',
+})
 
 export default function UserProfile() {
   const data = useLoaderData()
@@ -77,7 +82,3 @@ export function CatchBoundary() {
   }
   return <div className="max-w-screen-md mx-auto px-4">{message}</div>
 }
-
-export const meta: MetaFunction = ({ data }) => ({
-  title: data ? `@${data.params.username} · wuu2` : 'wuu... who?',
-})

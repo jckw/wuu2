@@ -1,5 +1,5 @@
 import React from 'react'
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
+import { FieldError } from 'react-hook-form'
 
 interface InputProps {
   id: string
@@ -22,7 +22,7 @@ const Input = React.forwardRef(
       suggestions,
       error,
       ...props
-    }: InputProps & UseFormRegisterReturn,
+    }: InputProps,
     ref
   ) => (
     <div>
