@@ -2,3 +2,7 @@ html,
 body {
   background-color: hsla(39, 33%, 96%, 1);
 }
+
+p {
+  margin-bottom: 5px;
+}

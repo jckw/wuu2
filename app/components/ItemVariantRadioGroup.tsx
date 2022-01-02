@@ -1,5 +1,5 @@
 import * as RadioGroup from '@radix-ui/react-radio-group'
-import { useController, UseControllerProps } from 'react-hook-form'
+import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
 import ItemIcon from './ItemIcon'
 
@@ -13,7 +13,7 @@ const captionMap: { [V in InterestVariant]: string } = {
   [InterestVariant.Topic]: 'a topic',
 }
 
-function ItemRadioGroup(props: UseControllerProps) {
+function ItemRadioGroup<T extends FieldValues>(props: UseControllerProps<T>) {
   const { field } = useController(props)
 
   return (

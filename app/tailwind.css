@@ -504,8 +504,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100%;
 }
 
+.max-w-lg {
+  max-width: 32rem;
+}
+
 .max-w-md {
   max-width: 28rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
 }
 
 .max-w-sm {
@@ -514,18 +522,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .max-w-screen-md {
   max-width: 768px;
-}
-
-.max-w-4xl {
-  max-width: 56rem;
-}
-
-.max-w-xl {
-  max-width: 36rem;
-}
-
-.max-w-lg {
-  max-width: 32rem;
 }
 
 .flex-1 {
@@ -610,12 +606,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: hsla(44, 27%, 92%, 1);
 }
 
-.border-black {
-  border-color: hsla(0, 0%, 0%, 1);
-}
-
 .border-ruby {
   border-color: hsla(360, 56%, 42%, 1);
+}
+
+.border-black {
+  border-color: hsla(0, 0%, 0%, 1);
 }
 
 .bg-white {
@@ -648,14 +644,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 0.5rem;
 }
 
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .pb-8 {
@@ -690,16 +686,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 24px;
 }
 
+.text-7 {
+  font-size: 48px;
+}
+
 .text-4 {
   font-size: 20px;
 }
 
 .text-1 {
   font-size: 12px;
-}
-
-.text-7 {
-  font-size: 48px;
 }
 
 .font-medium {
@@ -730,6 +726,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: hsla(200, 1%, 60%, 1);
 }
 
+.text-ruby {
+  color: hsla(360, 56%, 42%, 1);
+}
+
 .text-normal {
   color: hsla(0, 0%, 30%, 1);
 }
@@ -738,18 +738,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: hsla(0, 0%, 100%, 1);
 }
 
-.text-ruby {
-  color: hsla(360, 56%, 42%, 1);
-}
-
 .transition-transform {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-.invalid\:border-ruby:invalid {
-  border-color: hsla(360, 56%, 42%, 1);
 }
 
 .hover\:scale-105:hover {

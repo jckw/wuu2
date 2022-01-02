@@ -20,6 +20,7 @@ export const links: LinksFunction = () => [
     href: 'https://fonts.gstatic.com',
     crossOrigin: 'anonymous',
   },
+  { rel: 'stylesheet', href: styles },
   {
     rel: 'stylesheet',
     href: globalStyles,
@@ -42,7 +43,6 @@ export const links: LinksFunction = () => [
     as: 'image',
     type: 'image/svg+xml',
   },
-  { rel: 'stylesheet', href: styles },
   { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
   {
     rel: 'icon',
