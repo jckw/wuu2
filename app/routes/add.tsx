@@ -1,8 +1,14 @@
 import { useForm } from 'react-hook-form'
+import { MetaFunction } from 'remix'
 
 import Input, { TextArea } from '~/components/Input'
 import ItemRadioGroup from '~/components/ItemVariantRadioGroup'
 import { InterestVariant } from '~/schema/temp'
+import { title } from '~/utils/meta'
+
+export const meta: MetaFunction = () => ({
+  title: title('Add item'),
+})
 
 type FieldValues = {
   variant: InterestVariant

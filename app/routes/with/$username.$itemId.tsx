@@ -26,6 +26,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   return { params, item }
 }
 
+export const meta: MetaFunction = ({ data }) => ({
+  title: data ? title(data.item.title, data.params.username) : 'wuu... who?',
+})
+
 export default function UserProfile() {
   const data = useLoaderData()
 
@@ -99,7 +103,3 @@ export function CatchBoundary() {
   }
   return <div className="max-w-screen-md mx-auto px-4">{message}</div>
 }
-
-export const meta: MetaFunction = ({ data }) => ({
-  title: data ? title(data.item.title, data.params.username) : 'wuu... who?',
-})

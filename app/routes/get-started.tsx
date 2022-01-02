@@ -5,15 +5,15 @@ import { MetaFunction } from 'remix'
 import Input from '~/components/Input'
 import { title } from '~/utils/meta'
 
+export const meta: MetaFunction = () => ({
+  title: title('Get started'),
+})
+
 type FieldValues = {
   name: string
   username: string
   email: string
 }
-
-export const meta: MetaFunction = () => ({
-  title: title('Get started'),
-})
 
 export default function GetStarted() {
   const {
