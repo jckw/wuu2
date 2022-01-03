@@ -1,7 +1,14 @@
 import { gql } from 'graphql-request'
 import { useForm } from 'react-hook-form'
-import { ActionFunction, Form, MetaFunction, redirect } from 'remix'
+import {
+  ActionFunction,
+  Form,
+  MetaFunction,
+  redirect,
+  useLoaderData,
+} from 'remix'
 
+import { SignInMutation } from '~/__generated__/types'
 import Input from '~/components/Input'
 import { graphqlAction } from '~/lib/graphql'
 import { title } from '~/utils/meta'
@@ -28,11 +35,19 @@ export const action: ActionFunction = graphqlAction(
   async ({ request, graphql }) => {
     const body = await request.formData()
 
-    const { headers } = await graphql.rawRequest(mutation, {
-      email: body.get('email'),
-      password: body.get('password'),
-    })
+    const { data, headers } = await graphql.rawRequest<SignInMutation>(
+      mutation,
+      {
+        email: body.get('email'),
+        password: body.get('password'),
+      }
+    )
 
+    if (!data.signIn) {
+      return { error: "couldn't sign in" }
+    }
+
+    console.log(headers.get('set-cookie'))
     return redirect('/', {
       headers: { 'set-cookie': headers.get('set-cookie') || '' },
     })
@@ -41,6 +56,8 @@ export const action: ActionFunction = graphqlAction(
 
 export default function SignIn() {
   const { register } = useForm<FieldValues>()
+  const data = useLoaderData()
+  console.log(data)
 
   return (
     <div className="flex flex-col items-stretch pb-6 max-w-sm mx-auto">
