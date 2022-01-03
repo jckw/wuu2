@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { MetaFunction } from 'remix'
 
+import { Variant } from '~/__generated__/types'
 import Input, { TextArea } from '~/components/Input'
 import ItemRadioGroup from '~/components/ItemVariantRadioGroup'
-import { InterestVariant } from '~/schema/temp'
 import { title } from '~/utils/meta'
 
 export const meta: MetaFunction = () => ({
@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => ({
 })
 
 type FieldValues = {
-  variant: InterestVariant
+  variant: Variant
   title: string
   subtitle: string
   summary: string
@@ -23,14 +23,15 @@ type FieldText = {
   hint?: string
   suggestions?: string[]
 }
+
 const fieldTextMap: {
-  [V in InterestVariant]: {
+  [V in Variant]: {
     title: FieldText
     subtitle: FieldText
     summary: FieldText
   }
 } = {
-  [InterestVariant.Arts]: {
+  [Variant.Arts]: {
     title: { label: 'What are you creating?', placeholder: 'Macaroni art' },
     subtitle: {
       label: 'What are you looking for?',
@@ -43,7 +44,7 @@ const fieldTextMap: {
       placeholder: 'I have always had a passion for food-based art.',
     },
   },
-  [InterestVariant.Book]: {
+  [Variant.Book]: {
     title: {
       label: "What's the name of the book?",
       placeholder: 'Critique of Pure Reason',
@@ -58,7 +59,7 @@ const fieldTextMap: {
       placeholder: 'I enjoy painful reading.',
     },
   },
-  [InterestVariant.Group]: {
+  [Variant.Group]: {
     title: {
       label: 'What kind of group is it?',
       placeholder: 'Catan club',
@@ -74,7 +75,7 @@ const fieldTextMap: {
       placeholder: "I'm looking to fine-tune my strategy.",
     },
   },
-  [InterestVariant.Topic]: {
+  [Variant.Topic]: {
     title: {
       label: 'What topic do you want to share?',
       placeholder: 'Theoretical physics',
@@ -121,20 +122,20 @@ export default function Add() {
                 id="title"
                 type="text"
                 {...register('title', { required: true })}
-                {...fieldTextMap[variant as InterestVariant].title}
+                {...fieldTextMap[variant as Variant].title}
                 error={errors.title}
               />
               <Input
                 id="subtitle"
                 type="text"
                 {...register('subtitle', { required: true })}
-                {...fieldTextMap[variant as InterestVariant].subtitle}
+                {...fieldTextMap[variant as Variant].subtitle}
                 error={errors.subtitle}
               />
               <TextArea
                 id="summary"
                 {...register('summary', { required: true })}
-                {...fieldTextMap[variant as InterestVariant].summary}
+                {...fieldTextMap[variant as Variant].summary}
                 error={errors.summary}
               />
             </div>

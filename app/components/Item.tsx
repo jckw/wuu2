@@ -2,25 +2,33 @@ import { Link } from 'remix'
 
 import ItemIcon from './ItemIcon'
 
-import { Interest } from '~/schema/temp'
+import { Variant } from '~/__generated__/types'
+
+type ItemProps = {
+  slug: string
+  title: string
+  subtitle: string
+  summary: string
+  variant: Variant
+}
 
 export default function Item({
-  id,
+  slug,
   title,
   subtitle,
-  body,
-  category,
-}: Interest) {
+  summary,
+  variant,
+}: ItemProps) {
   return (
     <Link
-      to={id}
+      to={slug}
       className="m-4 gap-2 flex flex-col overflow-hidden group"
       style={{
         maxHeight: '222px',
       }}
     >
       <div className="group-hover:-translate-y-0.5 transition-transform">
-        <ItemIcon variant={category} />
+        <ItemIcon variant={variant} />
       </div>
       <div
         className="flex-1 min-h-0"
@@ -37,7 +45,7 @@ export default function Item({
             <h4 className="font-medium text-2 text-pale">{subtitle}</h4>
           )}
         </div>
-        {body.split('\n').map((para) => (
+        {summary.split('\n').map((para) => (
           <p className="text-2 text-normal">{para}</p>
         ))}
       </div>

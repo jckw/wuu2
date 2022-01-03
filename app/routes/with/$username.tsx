@@ -1,24 +1,51 @@
-import { LoaderFunction, MetaFunction, useCatch, useLoaderData } from 'remix'
+import { gql } from 'graphql-request'
+import {
+  LoaderFunction,
+  MetaFunction,
+  useCatch,
+  useLoaderData,
+  useParams,
+} from 'remix'
 
+import { ProfileQuery } from '~/__generated__/types'
 import AddItemSquare from '~/components/AddItemSquare'
 import Item from '~/components/Item'
-import { DATA } from '~/schema/temp'
+import graphqlClient from '~/lib/graphqlClient'
 import { title } from '~/utils/meta'
 
+const query = gql`
+  query Profile($username: String!) {
+    user(username: $username) {
+      name
+      username
+      items {
+        slug
+        title
+        subtitle
+        summary
+        variant
+      }
+    }
+  }
+`
+
 export const loader: LoaderFunction = async ({ params }) => {
-  if (params.username !== 'jack') {
+  const data = await graphqlClient.request<ProfileQuery>(query, params)
+
+  if (!data.user) {
     throw new Response('Not found', { status: 404 })
   }
 
-  return { params }
+  return data
 }
 
-export const meta: MetaFunction = ({ data }) => ({
-  title: data ? title(data.params.username) : 'wuu.. who?',
+export const meta: MetaFunction = ({ data, params }) => ({
+  title: params.username && data ? title(params.username) : 'wuu.. who?',
 })
 
 export default function UserProfile() {
-  const data = useLoaderData()
+  const data = useLoaderData<ProfileQuery>()
+  const params = useParams()
 
   return (
     <div
@@ -35,7 +62,7 @@ export default function UserProfile() {
       <div className="px-4">
         <h1 className="text-7 font-display">jack weatherilt</h1>
         <div className="font-medium">
-          @{data.params.username} · Updated 3 hrs ago
+          @{params.username} · Updated 3 hrs ago
         </div>
       </div>
       <div
@@ -45,8 +72,8 @@ export default function UserProfile() {
         }}
       >
         <AddItemSquare />
-        {DATA.map((d) => (
-          <Item key={d.title} {...d} />
+        {data.user?.items.map((d) => (
+          <Item key={d.slug} {...d} />
         ))}
       </div>
     </div>

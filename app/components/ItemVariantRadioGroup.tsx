@@ -3,14 +3,14 @@ import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
 import ItemIcon from './ItemIcon'
 
-import { InterestVariant } from '~/schema/temp'
+import { Variant } from '~/__generated__/types'
 
-const VARIANTS = Object.values(InterestVariant)
-const captionMap: { [V in InterestVariant]: string } = {
-  [InterestVariant.Arts]: 'arty stuff',
-  [InterestVariant.Book]: 'thing to read',
-  [InterestVariant.Group]: 'a group',
-  [InterestVariant.Topic]: 'a topic',
+const VARIANTS = Object.values(Variant)
+const captionMap: { [V in Variant]: string } = {
+  [Variant.Arts]: 'arty stuff',
+  [Variant.Book]: 'thing to read',
+  [Variant.Group]: 'a group',
+  [Variant.Topic]: 'a topic',
 }
 
 function ItemRadioGroup<T extends FieldValues>(props: UseControllerProps<T>) {
