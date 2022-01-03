@@ -47,9 +47,10 @@ export const action: ActionFunction = graphqlAction(
       return { error: "couldn't sign in" }
     }
 
-    console.log(headers.get('set-cookie'))
+    const rawHeaders = headers.raw()
+    const setCookies = rawHeaders['set-cookie'] as string[]
     return redirect('/', {
-      headers: { 'set-cookie': headers.get('set-cookie') || '' },
+      headers: setCookies.map((c) => ['set-cookie', c]),
     })
   }
 )
@@ -57,7 +58,6 @@ export const action: ActionFunction = graphqlAction(
 export default function SignIn() {
   const { register } = useForm<FieldValues>()
   const data = useLoaderData()
-  console.log(data)
 
   return (
     <div className="flex flex-col items-stretch pb-6 max-w-sm mx-auto">
