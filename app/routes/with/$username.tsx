@@ -10,11 +10,14 @@ import {
 import { ProfileQuery } from '~/__generated__/types'
 import AddItemSquare from '~/components/AddItemSquare'
 import Item from '~/components/Item'
-import graphqlClient from '~/lib/graphqlClient'
+import { graphqlLoader } from '~/lib/graphql'
 import { title } from '~/utils/meta'
 
 const query = gql`
   query Profile($username: String!) {
+    me {
+      username
+    }
     user(username: $username) {
       name
       username
@@ -29,15 +32,17 @@ const query = gql`
   }
 `
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const data = await graphqlClient.request<ProfileQuery>(query, params)
+export const loader: LoaderFunction = graphqlLoader(
+  async ({ params, graphql }) => {
+    const data = await graphql.request<ProfileQuery>(query, params)
 
-  if (!data.user) {
-    throw new Response('Not found', { status: 404 })
+    if (!data.user) {
+      throw new Response('Not found', { status: 404 })
+    }
+
+    return data
   }
-
-  return data
-}
+)
 
 export const meta: MetaFunction = ({ data, params }) => ({
   title: params.username && data ? title(params.username) : 'wuu.. who?',
@@ -46,6 +51,8 @@ export const meta: MetaFunction = ({ data, params }) => ({
 export default function UserProfile() {
   const data = useLoaderData<ProfileQuery>()
   const params = useParams()
+
+  const isOwnPage = data.me?.username === data.user?.username
 
   return (
     <div
@@ -71,7 +78,7 @@ export default function UserProfile() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(256px, 1fr))',
         }}
       >
-        <AddItemSquare />
+        {isOwnPage && <AddItemSquare />}
         {data.user?.items.map((d) => (
           <Item key={d.slug} {...d} />
         ))}

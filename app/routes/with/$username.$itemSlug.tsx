@@ -10,7 +10,7 @@ import {
 
 import { ProfileItemQuery } from '~/__generated__/types'
 import ItemIcon from '~/components/ItemIcon'
-import graphqlClient from '~/lib/graphqlClient'
+import { graphqlLoader } from '~/lib/graphql'
 import { title } from '~/utils/meta'
 
 const query = gql`
@@ -21,19 +21,25 @@ const query = gql`
       subtitle
       summary
       variant
+      updatedAt
+      user {
+        name
+      }
     }
   }
 `
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const data = await graphqlClient.request<ProfileItemQuery>(query, params)
+export const loader: LoaderFunction = graphqlLoader(
+  async ({ params, graphql }) => {
+    const data = await graphql.request<ProfileItemQuery>(query, params)
 
-  if (!data.profileItem) {
-    throw new Response('Not found', { status: 404 })
+    if (!data.profileItem) {
+      throw new Response('Not found', { status: 404 })
+    }
+
+    return data
   }
-
-  return data
-}
+)
 
 export const meta: MetaFunction = ({ data, params }) => ({
   title:
@@ -64,7 +70,7 @@ export default function UserProfile() {
             <span className="font-sans text-normal group-hover:text-black">
               &larr;
             </span>{' '}
-            jack weatherilt
+            {item.user.name}
           </div>
           <div className="font-medium text-1">
             @{params.username} · Updated 3 hrs ago
@@ -77,8 +83,11 @@ export default function UserProfile() {
           {item.title}
         </h1>
         <h2 className="text-4 font-medium text-pale mb-4">{item.subtitle}</h2>
-        {item.summary.split('\n').map((para) => (
-          <p className="text-3 text-normal">{para}</p>
+        {item.summary.split('\n').map((para, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <p key={i} className="text-3 text-normal">
+            {para}
+          </p>
         ))}
       </div>
     </div>

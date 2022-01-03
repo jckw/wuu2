@@ -1151,7 +1151,7 @@
     express "^4.17.1"
     morgan "^1.10.0"
 
-"@remix-run/server-runtime@1.1.1":
+"@remix-run/server-runtime@1.1.1", "@remix-run/server-runtime@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@remix-run/server-runtime/-/server-runtime-1.1.1.tgz#c713bf517a75b49544fc01316775f813ade25af6"
   integrity sha512-uTTGSjCn2WTXUShruvTuErpbdbGoLu2dZ/zQ0ZHA0MMgP4VDA8xyuBeRcv/By3xqGcu2zSxcEGv7tRPgzU1AtA==

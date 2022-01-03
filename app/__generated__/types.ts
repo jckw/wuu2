@@ -57,6 +57,7 @@ export type ProfileItem = {
   summary: Scalars['String']
   title: Scalars['String']
   updatedAt: Scalars['DateTime']
+  user: User
   variant: Variant
 }
 
@@ -100,6 +101,26 @@ export enum Variant {
   Topic = 'TOPIC',
 }
 
+export type MeQueryVariables = Exact<{ [key: string]: never }>
+
+export type MeQuery = {
+  __typename?: 'Query'
+  me?: { __typename?: 'User'; username: string } | null | undefined
+}
+
+export type SignInMutationVariables = Exact<{
+  email: Scalars['String']
+  password: Scalars['String']
+}>
+
+export type SignInMutation = {
+  __typename?: 'Mutation'
+  signIn?:
+    | { __typename?: 'User'; email: string; username: string }
+    | null
+    | undefined
+}
+
 export type ProfileItemQueryVariables = Exact<{
   username: Scalars['String']
   itemSlug: Scalars['String']
@@ -115,6 +136,8 @@ export type ProfileItemQuery = {
         subtitle: string
         summary: string
         variant: Variant
+        updatedAt: any
+        user: { __typename?: 'User'; name: string }
       }
     | null
     | undefined
@@ -126,6 +149,7 @@ export type ProfileQueryVariables = Exact<{
 
 export type ProfileQuery = {
   __typename?: 'Query'
+  me?: { __typename?: 'User'; username: string } | null | undefined
   user?:
     | {
         __typename?: 'User'

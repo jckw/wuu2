@@ -1,14 +1,21 @@
+import { gql } from 'graphql-request'
 import {
+  Link,
   Links,
   LinksFunction,
   LiveReload,
+  LoaderFunction,
   Meta,
   MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from 'remix'
+
+import { MeQuery } from './__generated__/types'
+import { graphqlLoader } from './lib/graphql'
 
 import globalStyles from './styles/global.css'
 import styles from './tailwind.css'
@@ -65,6 +72,20 @@ export const meta: MetaFunction = () => ({
   'theme-color': '#ffffff',
 })
 
+const query = gql`
+  query Me {
+    me {
+      username
+    }
+  }
+`
+
+export const loader: LoaderFunction = graphqlLoader(async ({ graphql }) => {
+  const data = await graphql.request<MeQuery>(query)
+
+  return data
+})
+
 function Document({
   children,
   title,
@@ -91,25 +112,27 @@ function Document({
   )
 }
 
-function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="pb-8 leading-normal font-sans">
-      <div className="p-2">
-        <img src="/icons/wuu2.svg" alt="wuu2" />
-      </div>
-      {children}
-    </div>
-  )
-}
-
-// https://remix.run/api/conventions#default-export
-// https://remix.run/api/conventions#route-filenames
 export default function App() {
+  const data = useLoaderData<MeQuery>()
+
   return (
     <Document>
-      <Layout>
+      <div className="pb-8 leading-normal font-sans">
+        <div className="p-2 flex justify-between items-center">
+          <img src="/icons/wuu2.svg" alt="wuu2" />
+          <div>
+            {data.me && (
+              <Link
+                to={`/with/${data.me.username}`}
+                className="rounded-full px-6 py-3 bg-black text-white font-display text-4 hover:opacity-80"
+              >
+                @{data.me.username}
+              </Link>
+            )}
+          </div>
+        </div>
         <Outlet />
-      </Layout>
+      </div>
     </Document>
   )
 }
@@ -119,17 +142,15 @@ export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error)
   return (
     <Document title="Error!">
-      <Layout>
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
-        </div>
-      </Layout>
+      <div>
+        <h1>There was an error</h1>
+        <p>{error.message}</p>
+        <hr />
+        <p>
+          Hey, developer, you should replace this with what you want your users
+          to see.
+        </p>
+      </div>
     </Document>
   )
 }
@@ -160,12 +181,10 @@ export function CatchBoundary() {
 
   return (
     <Document title={`${caught.status} ${caught.statusText}`}>
-      <Layout>
-        <h1>
-          {caught.status}: {caught.statusText}
-        </h1>
-        {message}
-      </Layout>
+      <h1>
+        {caught.status}: {caught.statusText}
+      </h1>
+      {message}
     </Document>
   )
 }
