@@ -45,7 +45,7 @@ export const loader: LoaderFunction = graphqlLoader(
 export const meta: MetaFunction = ({ data, params }) => ({
   title:
     params.username && data
-      ? title(data.profileItem.title, params.username)
+      ? title(data.profileItem.title, `@${params.username}`)
       : 'wuu... who?',
 })
 

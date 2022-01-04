@@ -181,7 +181,7 @@ export default function Add() {
               type="submit"
               className="mt-4 disabled:opacity-75 rounded-lg px-4 py-2 w-full bg-black text-white hover:scale-105 transition-transform active:scale-100"
             >
-              Submit
+              Add to profile
             </button>
           </>
         )}

@@ -1,4 +1,5 @@
 import { gql } from 'graphql-request'
+import React from 'react'
 import {
   Link,
   Links,
@@ -119,7 +120,9 @@ export default function App() {
     <Document>
       <div className="pb-8 leading-normal font-sans">
         <div className="p-2 flex justify-between items-center">
-          <img src="/icons/wuu2.svg" alt="wuu2" />
+          <Link to="/">
+            <img src="/icons/wuu2.svg" alt="wuu2" />
+          </Link>
           <div>
             {data.me && (
               <Link
@@ -137,20 +140,31 @@ export default function App() {
   )
 }
 
+function ErrorLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="max-w-md p-4 mx-auto">
+      <div className="mb-6 flex justify-center">
+        <img src="/icons/wuu2.svg" alt="wuu2" />
+      </div>
+      {children}
+    </div>
+  )
+}
+
 // https://remix.run/docs/en/v1/api/conventions#errorboundary
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error)
   return (
     <Document title="Error!">
-      <div>
-        <h1>There was an error</h1>
+      <ErrorLayout>
+        <h1 className="font-display text-5">There was an error</h1>
         <p>{error.message}</p>
         <hr />
         <p>
           Hey, developer, you should replace this with what you want your users
           to see.
         </p>
-      </div>
+      </ErrorLayout>
     </Document>
   )
 }
@@ -181,10 +195,12 @@ export function CatchBoundary() {
 
   return (
     <Document title={`${caught.status} ${caught.statusText}`}>
-      <h1>
-        {caught.status}: {caught.statusText}
-      </h1>
-      {message}
+      <ErrorLayout>
+        <h1 className="font-display text-5">
+          {caught.status}: {caught.statusText}
+        </h1>
+        {message}
+      </ErrorLayout>
     </Document>
   )
 }
