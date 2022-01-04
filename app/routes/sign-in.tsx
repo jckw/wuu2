@@ -1,11 +1,12 @@
 import { gql } from 'graphql-request'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   ActionFunction,
   Form,
   MetaFunction,
   redirect,
-  useLoaderData,
+  useActionData,
 } from 'remix'
 
 import { SignInMutation } from '~/__generated__/types'
@@ -25,8 +26,11 @@ type FieldValues = {
 const mutation = gql`
   mutation SignIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
-      email
-      username
+      user {
+        email
+        username
+      }
+      validationErrors
     }
   }
 `
@@ -34,30 +38,38 @@ const mutation = gql`
 export const action: ActionFunction = graphqlAction(
   async ({ request, graphql }) => {
     const body = await request.formData()
+    const params = Object.fromEntries(body)
 
     const { data, headers } = await graphql.rawRequest<SignInMutation>(
       mutation,
-      {
-        email: body.get('email'),
-        password: body.get('password'),
-      }
+      params
     )
 
-    if (!data.signIn) {
-      return { error: "couldn't sign in" }
+    if (!data.signIn.user) {
+      return data
     }
 
     const rawHeaders = headers.raw()
     const setCookies = rawHeaders['set-cookie'] as string[]
-    return redirect('/', {
+    return redirect(`/with/${data.signIn.user.username}`, {
       headers: setCookies.map((c) => ['set-cookie', c]),
     })
   }
 )
 
 export default function SignIn() {
-  const { register } = useForm<FieldValues>()
-  const data = useLoaderData()
+  const { register, setError } = useForm<FieldValues>()
+
+  // TODO: Extract to hook. See routes/get-started.tsx
+  const data = useActionData<SignInMutation>()
+  const validationErrors: Record<keyof FieldValues, string> =
+    data?.signIn.validationErrors || {}
+  const validationErrorsStr = JSON.stringify(validationErrors)
+  useEffect(() => {
+    Object.entries(validationErrors).map((k) =>
+      setError(k[0] as keyof FieldValues, { type: 'server', message: k[1] })
+    )
+  }, [validationErrorsStr])
 
   return (
     <div className="flex flex-col items-stretch pb-6 max-w-sm mx-auto">

@@ -67,7 +67,7 @@ export default function UserProfile() {
       }}
     >
       <div className="px-4">
-        <h1 className="text-7 font-display">jack weatherilt</h1>
+        <h1 className="text-7 font-display">{data.user?.name}</h1>
         <div className="font-medium">
           @{params.username} · Updated 3 hrs ago
         </div>

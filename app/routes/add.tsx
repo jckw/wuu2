@@ -1,9 +1,18 @@
+import { gql } from 'graphql-request'
 import { useForm } from 'react-hook-form'
-import { MetaFunction } from 'remix'
+import {
+  ActionFunction,
+  Form,
+  LoaderFunction,
+  MetaFunction,
+  redirect,
+} from 'remix'
 
-import { Variant } from '~/__generated__/types'
+import { AddMutation, Variant } from '~/__generated__/types'
 import Input, { TextArea } from '~/components/Input'
 import ItemRadioGroup from '~/components/ItemVariantRadioGroup'
+import { graphqlAction } from '~/lib/graphql'
+import { hasSessionidCookie } from '~/utils/cookies'
 import { title } from '~/utils/meta'
 
 export const meta: MetaFunction = () => ({
@@ -94,9 +103,38 @@ const fieldTextMap: {
   },
 }
 
+const mutation = gql`
+  mutation Add($params: ProfileItemInput!) {
+    addItem(data: $params) {
+      slug
+      user {
+        username
+      }
+    }
+  }
+`
+
+export const loader: LoaderFunction = async ({ request }) => {
+  if (!hasSessionidCookie(request)) {
+    return redirect('/')
+  }
+
+  return null
+}
+
+export const action: ActionFunction = graphqlAction(
+  async ({ request, graphql }) => {
+    const body = await request.formData()
+    const params = Object.fromEntries(body)
+
+    const data = await graphql.request<AddMutation>(mutation, { params })
+
+    return redirect(`/with/${data.addItem.user.username}/${data.addItem.slug}`)
+  }
+)
+
 export default function Add() {
   const {
-    handleSubmit,
     register,
     watch,
     control,
@@ -110,7 +148,7 @@ export default function Add() {
         What kind of thing are you showing?
       </h1>
 
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <Form method="post">
         <div className="mt-8 px-3">
           <ItemRadioGroup name="variant" control={control} />
         </div>
@@ -147,7 +185,7 @@ export default function Add() {
             </button>
           </>
         )}
-      </form>
+      </Form>
     </div>
   )
 }

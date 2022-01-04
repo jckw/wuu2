@@ -18,24 +18,20 @@ export type Scalars = {
   Float: number
   /** Date with time (isoformat) */
   DateTime: any
+  /** The GenericScalar scalar type represents a generic GraphQL scalar value that could be: List or Object. */
+  JSONScalar: any
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
   addItem: ProfileItem
-  completeProfile: User
-  signIn?: Maybe<User>
+  signIn: UserForm
   signOut: Scalars['Boolean']
-  signUp?: Maybe<User>
+  signUp: UserForm
 }
 
 export type MutationAddItemArgs = {
   data: ProfileItemInput
-}
-
-export type MutationCompleteProfileArgs = {
-  name: Scalars['String']
-  username: Scalars['String']
 }
 
 export type MutationSignInArgs = {
@@ -45,7 +41,9 @@ export type MutationSignInArgs = {
 
 export type MutationSignUpArgs = {
   email: Scalars['String']
+  name: Scalars['String']
   password: Scalars['String']
+  username: Scalars['String']
 }
 
 export type ProfileItem = {
@@ -94,6 +92,12 @@ export type User = {
   username: Scalars['String']
 }
 
+export type UserForm = {
+  __typename?: 'UserForm'
+  user?: Maybe<User>
+  validationErrors?: Maybe<Scalars['JSONScalar']>
+}
+
 export enum Variant {
   Arts = 'ARTS',
   Book = 'BOOK',
@@ -108,6 +112,46 @@ export type MeQuery = {
   me?: { __typename?: 'User'; username: string } | null | undefined
 }
 
+export type AddMutationVariables = Exact<{
+  params: ProfileItemInput
+}>
+
+export type AddMutation = {
+  __typename?: 'Mutation'
+  addItem: {
+    __typename?: 'ProfileItem'
+    slug: string
+    user: { __typename?: 'User'; username: string }
+  }
+}
+
+export type GetStartedMutationVariables = Exact<{
+  name: Scalars['String']
+  username: Scalars['String']
+  password: Scalars['String']
+  email: Scalars['String']
+}>
+
+export type GetStartedMutation = {
+  __typename?: 'Mutation'
+  signUp: {
+    __typename?: 'UserForm'
+    validationErrors?: any | null | undefined
+    user?: { __typename?: 'User'; username: string } | null | undefined
+  }
+}
+
+export type IndexQueryVariables = Exact<{ [key: string]: never }>
+
+export type IndexQuery = {
+  __typename?: 'Query'
+  me?: { __typename?: 'User'; username: string } | null | undefined
+}
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>
+
+export type LogoutMutation = { __typename?: 'Mutation'; signOut: boolean }
+
 export type SignInMutationVariables = Exact<{
   email: Scalars['String']
   password: Scalars['String']
@@ -115,10 +159,14 @@ export type SignInMutationVariables = Exact<{
 
 export type SignInMutation = {
   __typename?: 'Mutation'
-  signIn?:
-    | { __typename?: 'User'; email: string; username: string }
-    | null
-    | undefined
+  signIn: {
+    __typename?: 'UserForm'
+    validationErrors?: any | null | undefined
+    user?:
+      | { __typename?: 'User'; email: string; username: string }
+      | null
+      | undefined
+  }
 }
 
 export type ProfileItemQueryVariables = Exact<{

@@ -45,8 +45,11 @@ export default function Item({
             <h4 className="font-medium text-2 text-pale">{subtitle}</h4>
           )}
         </div>
-        {summary.split('\n').map((para) => (
-          <p className="text-2 text-normal">{para}</p>
+        {summary.split('\n').map((para, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <p key={i} className="text-2 text-normal">
+            {para}
+          </p>
         ))}
       </div>
     </Link>

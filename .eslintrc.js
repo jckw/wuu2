@@ -50,6 +50,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/no-unescaped-entities': 'off', // Maybe enable this one?
     'react/jsx-props-no-spreading': 'off',
+    'react/jsx-key': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
