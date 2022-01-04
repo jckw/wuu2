@@ -89,6 +89,7 @@ export type User = {
   id: Scalars['ID']
   items: Array<ProfileItem>
   name: Scalars['String']
+  updatedAt: Scalars['DateTime']
   username: Scalars['String']
 }
 
@@ -203,6 +204,7 @@ export type ProfileQuery = {
         __typename?: 'User'
         name: string
         username: string
+        updatedAt: any
         items: Array<{
           __typename?: 'ProfileItem'
           slug: string

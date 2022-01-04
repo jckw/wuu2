@@ -12,6 +12,7 @@ import { ProfileItemQuery } from '~/__generated__/types'
 import ItemIcon from '~/components/ItemIcon'
 import { graphqlLoader } from '~/lib/graphql'
 import { title } from '~/utils/meta'
+import { formatISODistance } from '~/utils/time'
 
 const query = gql`
   query ProfileItem($username: String!, $itemSlug: String!) {
@@ -73,7 +74,8 @@ export default function UserProfile() {
             {item.user.name}
           </div>
           <div className="font-medium text-1">
-            @{params.username} · Updated 3 hrs ago
+            @{params.username} · Updated{' '}
+            {formatISODistance(data.profileItem?.updatedAt)}
           </div>
         </div>
       </Link>

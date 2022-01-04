@@ -12,6 +12,7 @@ import AddItemSquare from '~/components/AddItemSquare'
 import Item from '~/components/Item'
 import { graphqlLoader } from '~/lib/graphql'
 import { title } from '~/utils/meta'
+import { formatISODistance } from '~/utils/time'
 
 const query = gql`
   query Profile($username: String!) {
@@ -21,6 +22,7 @@ const query = gql`
     user(username: $username) {
       name
       username
+      updatedAt
       items {
         slug
         title
@@ -69,7 +71,7 @@ export default function UserProfile() {
       <div className="px-4">
         <h1 className="text-7 font-display">{data.user?.name}</h1>
         <div className="font-medium">
-          @{params.username} · Updated 3 hrs ago
+          @{params.username} · Updated {formatISODistance(data.user?.updatedAt)}
         </div>
       </div>
       <div
