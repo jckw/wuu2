@@ -27,44 +27,47 @@ export default function Index() {
   const isAuthed = !!data.me
 
   return (
-    <div className="mx-auto max-w-4xl py-8 px-4">
-      <h1 className="text-center font-display leading-headline text-7">
-        what's everyone up to?
-      </h1>
-      <h3 className="text-4 font-medium text-normal mt-4 text-center">
-        This is a place to find out.
-      </h3>
-      <div className="flex space-x-8 my-10 justify-center">
-        <ItemIcon variant={Variant.Topic} />
-        <ItemIcon variant={Variant.Arts} />
-        <ItemIcon variant={Variant.Book} />
-        <ItemIcon variant={Variant.Group} />
+    <>
+      <div className="mx-auto max-w-4xl py-8 px-4">
+        <h1 className="text-center font-display leading-headline-display text-9">
+          what's everyone up to?
+        </h1>
+        <h3 className="text-4 font-medium text-normal mt-4 text-center">
+          This is a place to find out.
+        </h3>
+        <div className="flex space-x-8 my-10 justify-center">
+          <ItemIcon variant={Variant.Topic} />
+          <ItemIcon variant={Variant.Arts} />
+          <ItemIcon variant={Variant.Book} />
+          <ItemIcon variant={Variant.Group} />
+        </div>
+        <div className="flex justify-center my-8">
+          {isAuthed ? (
+            <Link
+              to={`/with/${data.me?.username}`}
+              className="bg-white border text-black font-medium px-4 py-2 rounded-full"
+            >
+              view your profile
+            </Link>
+          ) : (
+            <Link
+              to="/get-started"
+              className="bg-white border text-black font-medium px-4 py-2 rounded-full"
+            >
+              + create your profile
+            </Link>
+          )}
+        </div>
       </div>
-      <div className="text-center text-normal font-medium max-w-sm mx-auto">
-        <p>A place to casually share what you're doing.</p>
-        <p>
-          Tell us what you find interesting, what you want to learn, what you're
-          currently learning and all the other weird things about you.
-        </p>
-        <p> Find out more about people you already know.</p>
+      <div className="text-center text-black font-medium text-5 grid grid-cols-2 border-t border-b">
+        <div className="border-r last:border-r-0 px-4 py-8 bg-white flex items-center justify-center">
+          A place to casually share what you're doing.
+        </div>
+        <div className="border-r last:border-r-0 px-4 py-8 bg-white flex items-center justify-center">
+          {' '}
+          Find out more about people you already know.
+        </div>
       </div>
-      <div className="flex justify-center mt-8">
-        {isAuthed ? (
-          <Link
-            to={`/with/${data.me?.username}`}
-            className="bg-white border text-black font-medium px-4 py-2 rounded-full"
-          >
-            view your profile
-          </Link>
-        ) : (
-          <Link
-            to="/get-started"
-            className="bg-white border text-black font-medium px-4 py-2 rounded-full"
-          >
-            + create your profile
-          </Link>
-        )}
-      </div>
-    </div>
+    </>
   )
 }

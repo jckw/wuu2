@@ -30,10 +30,13 @@ module.exports = {
       5: '24px',
       6: '32px',
       7: '48px',
+      8: '64px',
+      9: '72px',
     },
     lineHeight: {
       normal: '1.4',
       headline: '1.1',
+      'headline-display': '0.9',
     },
     extend: {},
   },
