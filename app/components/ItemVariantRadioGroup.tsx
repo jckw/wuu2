@@ -27,7 +27,7 @@ function ItemRadioGroup<T extends FieldValues>(props: UseControllerProps<T>) {
         <label
           key={variant}
           htmlFor={variant}
-          className="flex gap-2 items-center px-4 py-2 rounded-full border bg-white flex-shrink-0i"
+          className="flex gap-2 items-center px-4 py-2 rounded-full border bg-white"
         >
           <ItemIcon variant={variant} />
           {captionMap[variant]}

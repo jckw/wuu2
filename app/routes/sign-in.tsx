@@ -58,7 +58,11 @@ export const action: ActionFunction = graphqlAction(
 )
 
 export default function SignIn() {
-  const { register, setError } = useForm<FieldValues>()
+  const {
+    register,
+    setError,
+    formState: { errors },
+  } = useForm<FieldValues>()
 
   // TODO: Extract to hook. See routes/get-started.tsx
   const data = useActionData<SignInMutation>()
@@ -79,12 +83,19 @@ export default function SignIn() {
       </div>
       <div className="border border-black rounded-2xl p-8 bg-white">
         <Form className="space-y-8" method="post">
-          <Input id="email" label="Email" type="email" {...register('email')} />
+          <Input
+            id="email"
+            label="Email"
+            type="email"
+            {...register('email')}
+            error={errors.email}
+          />
           <Input
             id="password"
             label="Password"
             type="password"
             {...register('password')}
+            error={errors.password}
           />
           <button
             type="submit"

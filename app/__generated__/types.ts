@@ -106,11 +106,20 @@ export enum Variant {
   Topic = 'TOPIC',
 }
 
+export type UserNavbar_UserFragment = {
+  __typename?: 'User'
+  name: string
+  username: string
+}
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>
 
 export type MeQuery = {
   __typename?: 'Query'
-  me?: { __typename?: 'User'; username: string } | null | undefined
+  me?:
+    | { __typename?: 'User'; username: string; name: string }
+    | null
+    | undefined
 }
 
 export type AddMutationVariables = Exact<{

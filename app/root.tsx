@@ -16,6 +16,7 @@ import {
 } from 'remix'
 
 import { MeQuery } from './__generated__/types'
+import UserNavbar from './components/UserNavbar'
 import { graphqlLoader } from './lib/graphql'
 
 import globalStyles from './styles/global.css'
@@ -77,8 +78,11 @@ const query = gql`
   query Me {
     me {
       username
+      ...UserNavbar_User
     }
   }
+
+  ${UserNavbar.fragment}
 `
 
 export const loader: LoaderFunction = graphqlLoader(async ({ graphql }) => {
@@ -119,20 +123,11 @@ export default function App() {
   return (
     <Document>
       <div className="pb-8 leading-normal font-sans">
-        <div className="p-2 flex justify-between items-center">
+        <div className="p-2 flex justify-between items-center flex-wrap">
           <Link to="/">
             <img src="/icons/wuu2.svg" alt="wuu2" />
           </Link>
-          <div>
-            {data.me && (
-              <Link
-                to={`/with/${data.me.username}`}
-                className="rounded-full px-6 py-3 bg-black text-white font-display text-4 hover:opacity-80"
-              >
-                @{data.me.username}
-              </Link>
-            )}
-          </div>
+          <UserNavbar user={data.me} />
         </div>
         <Outlet />
       </div>

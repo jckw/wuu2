@@ -16,6 +16,7 @@ module.exports = {
       sand: 'hsla(39, 33%, 96%, 1)', // bg colour
       white: 'hsla(0, 0%, 100%, 1)',
       ruby: 'hsla(360, 56%, 42%, 1)',
+      pink: 'hsla(312, 100%, 78%, 1)',
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],

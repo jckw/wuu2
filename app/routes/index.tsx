@@ -59,12 +59,11 @@ export default function Index() {
           )}
         </div>
       </div>
-      <div className="text-center text-black font-medium text-5 grid grid-cols-2 border-t border-b">
-        <div className="border-r last:border-r-0 px-4 py-8 bg-white flex items-center justify-center">
+      <div className="text-center text-black font-medium text-5 grid grid-cols-1 sm:grid-cols-2 border-t border-b">
+        <div className="border-b sm:border-r sm:border-b-0 px-4 py-8 bg-white flex items-center justify-center">
           A place to casually share what you're doing.
         </div>
-        <div className="border-r last:border-r-0 px-4 py-8 bg-white flex items-center justify-center">
-          {' '}
+        <div className="px-4 py-8 bg-white flex items-center justify-center">
           Find out more about people you already know.
         </div>
       </div>
