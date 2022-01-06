@@ -87,7 +87,7 @@ export default function UserProfile() {
         <h2 className="text-4 font-medium text-pale mb-4">{item.subtitle}</h2>
         {item.summary.split('\n').map((para, i) => (
           // eslint-disable-next-line react/no-array-index-key
-          <p key={i} className="text-3 text-normal">
+          <p key={i} className="text-3 text-normal mb-2.5 leading-reading">
             {para}
           </p>
         ))}

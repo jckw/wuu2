@@ -35,6 +35,7 @@ module.exports = {
       9: '72px',
     },
     lineHeight: {
+      reading: '1.6',
       normal: '1.4',
       headline: '1.1',
       'headline-display': '0.9',
