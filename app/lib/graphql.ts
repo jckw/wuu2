@@ -9,7 +9,7 @@ import type {
 const createGraphqlClient = (requestHeaders: Headers) =>
   new GraphQLClient(
     process.env.NODE_ENV === 'production'
-      ? 'https://wuu2-app.herokuapp.com/graphql'
+      ? 'https://api.wuu2.app/graphql'
       : 'http://localhost:8000/graphql',
     {
       credentials: 'include',
