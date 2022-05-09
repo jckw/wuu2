@@ -1,5 +1,5 @@
+import { LoaderFunction, redirect } from '@remix-run/server-runtime'
 import { gql } from 'graphql-request'
-import { LoaderFunction, redirect } from 'remix'
 
 import { LogoutMutation } from '~/__generated__/types'
 import { graphqlLoader } from '~/lib/graphql'

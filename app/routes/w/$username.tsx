@@ -1,4 +1,4 @@
-import { LoaderFunction, redirect } from 'remix'
+import { LoaderFunction, redirect } from '@remix-run/server-runtime'
 
 export const loader: LoaderFunction = ({ params }) =>
   redirect(`/with/${params.username}`)

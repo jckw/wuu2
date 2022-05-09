@@ -1,19 +1,21 @@
-import { gql } from 'graphql-request'
-import React from 'react'
 import {
   Link,
   Links,
-  LinksFunction,
   LiveReload,
-  LoaderFunction,
   Meta,
-  MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
   useCatch,
   useLoaderData,
-} from 'remix'
+} from '@remix-run/react'
+import {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from '@remix-run/server-runtime'
+import { gql } from 'graphql-request'
+import React from 'react'
 
 import { MeQuery } from './__generated__/types'
 import UserNavbar from './components/UserNavbar'

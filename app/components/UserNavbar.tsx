@@ -1,6 +1,7 @@
 import * as Popover from '@radix-ui/react-popover'
+import { Link } from '@remix-run/react'
+import { LinksFunction } from '@remix-run/server-runtime'
 import { gql } from 'graphql-request'
-import { Link, LinksFunction } from 'remix'
 
 import { UserNavbar_UserFragment } from '~/__generated__/types'
 

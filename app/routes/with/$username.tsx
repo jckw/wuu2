@@ -1,11 +1,6 @@
+import { LoaderFunction, MetaFunction } from '@remix-run/server-runtime'
+import { useCatch, useLoaderData, useParams } from '@remix-run/react'
 import { gql } from 'graphql-request'
-import {
-  LoaderFunction,
-  MetaFunction,
-  useCatch,
-  useLoaderData,
-  useParams,
-} from 'remix'
 
 import { ProfileQuery } from '~/__generated__/types'
 import AddItemSquare from '~/components/AddItemSquare'

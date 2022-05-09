@@ -1,16 +1,14 @@
+import { Form, useActionData, useLoaderData } from '@remix-run/react'
+import {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+  redirect,
+} from '@remix-run/server-runtime'
 import { gql } from 'graphql-request'
 import sample from 'lodash/sample'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  ActionFunction,
-  Form,
-  LoaderFunction,
-  MetaFunction,
-  redirect,
-  useActionData,
-  useLoaderData,
-} from 'remix'
 
 import { GetStartedMutation } from '~/__generated__/types'
 import Input from '~/components/Input'
