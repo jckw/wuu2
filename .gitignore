@@ -6,3 +6,4 @@ node_modules
 
 build
 api/_build
+.env

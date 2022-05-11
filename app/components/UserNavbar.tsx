@@ -65,16 +65,10 @@ export default function UserNavbar({ user }: Props) {
       >
         log in
       </Link>
-      {/* <Link
-        to="/get-started"
-        className="block px-4 py-2 rounded-full border bg-white transition hover:-translate-y-0.5 hover:-translate-x-0.5 hover:bg-pink active:translate-x-0 active:translate-y-0"
-      >
-      </Link> */}
       <Link
         to="/get-started"
         className="block px-4 py-2 rounded-full border bg-white transition hover:-translate-y-0.5 hover:-translate-x-0.5 hover:bg-pink active:translate-x-0 active:translate-y-0"
       >
-        {/* create your profile */}
         sign up
       </Link>
     </div>

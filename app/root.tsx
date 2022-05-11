@@ -10,6 +10,7 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import {
+  json,
   LinksFunction,
   LoaderFunction,
   MetaFunction,
@@ -90,7 +91,13 @@ const query = gql`
 export const loader: LoaderFunction = graphqlLoader(async ({ graphql }) => {
   const data = await graphql.request<MeQuery>(query)
 
-  return data
+  return json({
+    data,
+    ENV: {
+      NODE_ENV: process.env.NODE_ENV,
+      API_URL: process.env.API_URL,
+    },
+  })
 })
 
 function Document({
@@ -113,14 +120,15 @@ function Document({
         {children}
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && <LiveReload />}
+        <LiveReload />
       </body>
     </html>
   )
 }
 
 export default function App() {
-  const data = useLoaderData<MeQuery>()
+  const { data, ENV } =
+    useLoaderData<{ data: MeQuery; ENV: Record<string, string> }>()
 
   return (
     <Document>
@@ -132,6 +140,12 @@ export default function App() {
           <UserNavbar user={data.me} />
         </div>
         <Outlet />
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
       </div>
     </Document>
   )

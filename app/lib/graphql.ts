@@ -4,18 +4,21 @@ import type {
   AppData,
   LoaderFunction,
   DataFunctionArgs,
+  ActionFunction,
 } from '@remix-run/server-runtime'
 
+const getEnvVar = (name: string) => {
+  // Watch out: naughty type casting
+  const env = process ? process.env : (window as any).ENV
+
+  return env[name]
+}
+
 const createGraphqlClient = (requestHeaders: Headers) =>
-  new GraphQLClient(
-    process.env.NODE_ENV === 'production'
-      ? 'https://api.wuu2.app/graphql'
-      : 'http://localhost:8000/graphql',
-    {
-      credentials: 'include',
-      headers: { Cookie: requestHeaders.get('Cookie') || '' },
-    }
-  )
+  new GraphQLClient(getEnvVar('API_URL'), {
+    credentials: 'include',
+    headers: { Cookie: requestHeaders.get('Cookie') || '' },
+  })
 
 interface GraphQLDataFunctionArgs extends DataFunctionArgs {
   graphql: GraphQLClient
@@ -49,7 +52,7 @@ export interface GraphQLActionFunction {
 
 export function graphqlAction(
   actionFunc: GraphQLActionFunction
-): LoaderFunction {
+): ActionFunction {
   return (actionArgs) =>
     actionFunc({
       ...actionArgs,
