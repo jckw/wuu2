@@ -38,3 +38,17 @@ npm run dev
 Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
 
 If you're used to using the `vercel dev` command provided by [Vercel CLI](https://vercel.com/cli) instead, you can also use that, but it's not needed.
+
+### Docker
+
+Build with:
+
+```
+docker build . -t wuu2-remix
+```
+
+Run with:
+
+```
+docker run --env-file .env.docker -p 3000:3000 -t wuu2-remix
+```
